@@ -8,8 +8,20 @@
     "dev": "nodemon src/server.ts",
     "test": "vitest"
   },
-  "keywords": ["cdn", "express", "file-serving"],
+  "keywords": [
+    "cdn",
+    "express",
+    "file-serving"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
+  }
 }
