@@ -1,0 +1,28 @@
+{
+  "name": "express-cdn-server",
+  "version": "1.0.0",
+  "description": "Express CDN File Serving Application",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "test": "vitest"
+  },
+  "keywords": [
+    "cdn",
+    "express",
+    "file-serving"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
+  }
+}
