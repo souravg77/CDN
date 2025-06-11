@@ -1,0 +1,15 @@
+{
+  "name": "express-cdn-server",
+  "version": "1.0.0",
+  "description": "Express CDN File Serving Application",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "test": "vitest"
+  },
+  "keywords": ["cdn", "express", "file-serving"],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
