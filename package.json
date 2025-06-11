@@ -1,0 +1,14 @@
+{
+  "name": "express-cdn-server",
+  "version": "1.0.0",
+  "description": "Express CDN file serving application",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "vitest"
+  },
+  "keywords": ["cdn", "express", "file-serving"],
+  "author": "",
+  "license": "ISC"
+}
