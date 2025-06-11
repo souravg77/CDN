@@ -1,0 +1,15 @@
+{
+  "name": "express-cdn-server",
+  "version": "1.0.0",
+  "description": "Secure Express CDN File Server",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": ["cdn", "express", "file-server"],
+  "author": "",
+  "license": "ISC"
+}
