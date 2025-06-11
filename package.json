@@ -8,7 +8,14 @@
     "start": "node src/server.js",
     "test": "vitest"
   },
-  "keywords": ["cdn", "express", "file-serving"],
+  "keywords": [
+    "cdn",
+    "express",
+    "file-serving"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^3.2.3"
+  }
 }
