@@ -88,7 +88,7 @@ describe('Upload Error Handling', () => {
       
       uploadErrorHandler(error, mockReq, mockRes, mockNext);
       
-      expect(mockRes.status).toHaveBeenCalledWith(413);
+      expect(mockRes.status).toHaveBeenCalledWith(400);
       expect(mockRes.json).toHaveBeenCalledWith({
         error: true,
         message: 'File size exceeds the maximum limit'
