@@ -24,27 +24,28 @@ describe('Multer Configuration', () => {
     expect(fs.existsSync(uploadDir)).toBeTruthy();
   });
 
-  it('should generate unique filenames', () => {
+  it('should have unique filename generation', (done) => {
     const mockFile = {
       fieldname: 'test', 
       originalname: 'image.jpg',
       mimetype: 'image/jpeg'
     } as any;
 
-    const callback = (err: any, filename?: string) => {
-      if (err) throw err;
-    };
+    upload.storage._handleFile({} as any, mockFile, (err, result) => {
+      if (err) {
+        done(err);
+        return;
+      }
+      
+      upload.storage._handleFile({} as any, mockFile, (err2, result2) => {
+        if (err2) {
+          done(err2);
+          return;
+        }
 
-    const filename1 = new Promise((resolve) => {
-      upload.storage.filename({} as any, mockFile, (err, filename) => resolve(filename));
-    });
-
-    const filename2 = new Promise((resolve) => {
-      upload.storage.filename({} as any, mockFile, (err, filename) => resolve(filename));
-    });
-
-    Promise.all([filename1, filename2]).then(([f1, f2]) => {
-      expect(f1).not.toEqual(f2);
+        expect(result.filename).not.toEqual(result2.filename);
+        done();
+      });
     });
   });
 });
