@@ -62,7 +62,8 @@ export const fileFilter = (allowedTypes: string[], maxSize: number) =>
   };
 
 // Error handling middleware for upload errors
-export const uploadErrorHandler = (err: Error, req: Request, res: any, next: Function) => {
+export const uploadErrorHandler = (err: any, req: Request, res: any, next: Function) => {
+  // Handle custom UploadError instances
   if (err instanceof UploadError) {
     return res.status(err.statusCode).json({
       error: true,
@@ -70,6 +71,7 @@ export const uploadErrorHandler = (err: Error, req: Request, res: any, next: Fun
     });
   }
 
+  // Handle Multer-specific errors
   if (err instanceof multer.MulterError) {
     switch (err.code) {
       case 'LIMIT_FILE_SIZE':
