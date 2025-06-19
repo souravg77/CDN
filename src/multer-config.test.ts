@@ -24,7 +24,7 @@ describe('Multer Configuration', () => {
     expect(fs.existsSync(uploadDir)).toBeTruthy();
   });
 
-  it('should allow specific file types', (done) => {
+  it('should allow specific file types', async () => {
     const allowedTypes = [
       'image/jpeg', 
       'image/png', 
@@ -46,27 +46,23 @@ describe('Multer Configuration', () => {
       { mimetype: 'application/zip' }
     ];
 
-    const checkAllowedFiles = mockFiles.map((file) => {
+    const checkFile = (file: any): Promise<boolean> => {
       return new Promise((resolve) => {
         upload.fileFilter({} as any, file as any, (error) => {
           resolve(error === null);
         });
       });
-    });
+    };
 
-    const checkRejectedFiles = rejectedFiles.map((file) => {
-      return new Promise((resolve) => {
-        upload.fileFilter({} as any, file as any, (error) => {
-          resolve(error !== null);
-        });
-      });
-    });
+    const allowedResults = await Promise.all(
+      mockFiles.map(file => checkFile(file))
+    );
 
-    Promise.all([...checkAllowedFiles, ...checkRejectedFiles])
-      .then((results) => {
-        expect(results.every(result => result === true)).toBe(true);
-        done();
-      })
-      .catch(done);
+    const rejectedResults = await Promise.all(
+      rejectedFiles.map(file => checkFile(file))
+    );
+
+    expect(allowedResults.every(result => result === true)).toBe(true);
+    expect(rejectedResults.every(result => result === false)).toBe(true);
   });
 });
