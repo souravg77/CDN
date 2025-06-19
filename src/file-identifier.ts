@@ -15,10 +15,12 @@ export function generateFileIdentifier(length: number = 16): string {
 
 /**
  * Validates a file identifier
- * @param {string} identifier - File identifier to validate
+ * @param {string | null | undefined} identifier - File identifier to validate
  * @returns {boolean} Whether the identifier is valid
  */
-export function isValidFileIdentifier(identifier: string): boolean {
+export function isValidFileIdentifier(identifier?: string | null): boolean {
+    if (identifier == null) return false;
+
     const hexRegex = /^[0-9a-fA-F]+$/;
     return identifier.length >= 4 && 
            identifier.length <= 64 && 
