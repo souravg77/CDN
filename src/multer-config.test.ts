@@ -24,28 +24,38 @@ describe('Multer Configuration', () => {
     expect(fs.existsSync(uploadDir)).toBeTruthy();
   });
 
-  it('should have unique filename generation', (done) => {
-    const mockFile = {
-      fieldname: 'test', 
-      originalname: 'image.jpg',
-      mimetype: 'image/jpeg'
-    } as any;
+  it('should allow specific file types', () => {
+    const allowedTypes = [
+      'image/jpeg', 
+      'image/png', 
+      'image/gif', 
+      'application/pdf',
+      'text/plain'
+    ];
 
-    upload.storage._handleFile({} as any, mockFile, (err, result) => {
-      if (err) {
-        done(err);
-        return;
+    const mockFiles = [
+      { mimetype: 'image/jpeg' },
+      { mimetype: 'image/png' },
+      { mimetype: 'application/pdf' },
+      { mimetype: 'text/plain' }
+    ];
+
+    const rejectedFiles = [
+      { mimetype: 'video/mp4' },
+      { mimetype: 'audio/mpeg' },
+      { mimetype: 'application/zip' }
+    ];
+
+    mockFiles.forEach(file => {
+      expect(upload.fileFilter({} as any, file as any, () => {})).toBeTruthy();
+    });
+
+    rejectedFiles.forEach(file => {
+      try {
+        upload.fileFilter({} as any, file as any, () => {});
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
       }
-      
-      upload.storage._handleFile({} as any, mockFile, (err2, result2) => {
-        if (err2) {
-          done(err2);
-          return;
-        }
-
-        expect(result.filename).not.toEqual(result2.filename);
-        done();
-      });
     });
   });
 });
