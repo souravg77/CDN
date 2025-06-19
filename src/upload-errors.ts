@@ -72,24 +72,11 @@ export const uploadErrorHandler = (err: any, req: Request, res: any, next: Funct
   }
 
   // Handle Multer-specific errors
-  if (err instanceof multer.MulterError) {
-    switch (err.code) {
-      case 'LIMIT_FILE_SIZE':
-        return res.status(413).json({
-          error: true,
-          message: 'File size exceeds the maximum limit'
-        });
-      case 'LIMIT_FILE_COUNT':
-        return res.status(400).json({
-          error: true,
-          message: 'Maximum file count exceeded'
-        });
-      default:
-        return res.status(500).json({
-          error: true,
-          message: 'Upload error occurred'
-        });
-    }
+  if (err instanceof multer.MulterError || (err && err.code === 'LIMIT_FILE_SIZE')) {
+    return res.status(400).json({
+      error: true,
+      message: 'File size exceeds the maximum limit'
+    });
   }
 
   // For any other unexpected errors
